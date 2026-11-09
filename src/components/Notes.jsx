@@ -110,6 +110,10 @@ function Notes() {
             </li>
           ))}
         </ul>
+
+        {notes.length === 0 && (
+          <p className="text-lg text-[#949494] mt-4">No notes found</p>
+        )}
       </section>
     </div>
   )
