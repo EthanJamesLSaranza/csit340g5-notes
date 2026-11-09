@@ -1,18 +1,25 @@
+import { useState } from 'react'
+
 function NoteCard({ title, body }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <div>
-      <h3 className="pr-8 text-[22px] font-normal break-words">{title}</h3>
-      <p className="mt-3 text-[17px] break-words whitespace-pre-wrap text-[#4d4d4d]">
-        {body}
-      </p>
+      <h3 className="text-lg font-medium text-[#08060d] mb-2">{title}</h3>
+      
+      {isExpanded && (
+        <p className="text-base text-[#6b6375] mb-4 whitespace-pre-wrap">{body}</p>
+      )}
+
       <button
         type="button"
-        className="mt-3 cursor-pointer text-[15px] font-normal text-[#b83f45] underline"
+        onClick={() => setIsExpanded((prev) => !prev)}
+        className="cursor-pointer text-sm text-[#b83f45] hover:underline focus:outline-none"
       >
-        Show more
+        {isExpanded ? "Show less" : "Show more"}
       </button>
     </div>
   )
 }
- 
+
 export default NoteCard
