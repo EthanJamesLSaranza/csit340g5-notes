@@ -1,13 +1,9 @@
-import Notes from './components/Notes.jsx'
-import Info from './components/Info.jsx'
- 
-function App() {
+import Notes from './components/Notes'
+
+export default function App() {
   return (
-    <div className="bg-[#f5f5f5] font-light text-[#111]">
+    <main>
       <Notes />
-      <Info name="Ethan James L. Saranza" />
-    </div>
+    </main>
   )
 }
- 
-export default App
