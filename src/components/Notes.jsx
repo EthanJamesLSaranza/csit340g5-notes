@@ -115,7 +115,6 @@ function Notes() {
           </div>
         </div>
 
-        <p className="text-xs text-[#949494]">Created by Ethan James L. Saranza</p>
       </aside>
 
       <section className="px-12 py-11">
