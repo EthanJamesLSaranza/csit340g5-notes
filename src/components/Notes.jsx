@@ -27,6 +27,7 @@ function Notes() {
   });
 
   const [searchQuery, setSearchQuery] = useState("");
+  const titleRef = useRef(null)
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes))
@@ -64,6 +65,7 @@ function Notes() {
 
     setNotes((prevNotes) => [...prevNotes, newNote]);
     setFormData({ title: "", body: "" });
+    titleRef.current.focus()
   };
 
   const deleteNote = (id) => {
@@ -71,7 +73,6 @@ function Notes() {
   };
 
   const visibleNotes = useMemo(() => {
-    console.log('filtering')
     return notes.filter((note) =>
       note.title.toLowerCase().includes(searchQuery.toLowerCase())
     )
@@ -87,6 +88,7 @@ function Notes() {
           <div>
             <p className="mb-2 text-[13px] font-normal tracking-wide text-[#949494]">SEARCH</p>
             <input
+              ref={titleRef}
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
