@@ -1,40 +1,22 @@
-import { useState, useContext } from 'react'
-import { SettingsContext } from '../SettingsContext.js'
+import { useState } from 'react'
 
 function NoteCard({ title, body }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const { largeText } = useContext(SettingsContext)
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <div>
-      <h3
-        className={
-          largeText
-            ? 'pr-8 text-[28px] font-normal break-words'
-            : 'pr-8 text-[22px] font-normal break-words'
-        }
-      >
-        {title}
-      </h3>
-
-      {isOpen && (
-        <p
-          className={
-            largeText
-              ? 'mt-3 text-[21px] break-words whitespace-pre-wrap text-[#4d4d4d]'
-              : 'mt-3 text-[17px] break-words whitespace-pre-wrap text-[#4d4d4d]'
-          }
-        >
-          {body}
-        </p>
+      <h3 className="text-lg font-medium text-[#08060d] mb-2">{title}</h3>
+      
+      {isExpanded && (
+        <p className="text-base text-[#6b6375] mb-4 whitespace-pre-wrap">{body}</p>
       )}
 
       <button
         type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className="mt-3 cursor-pointer text-sm text-[#949494] hover:text-[#b83f45]"
+        onClick={() => setIsExpanded((prev) => !prev)}
+        className="cursor-pointer text-sm text-[#b83f45] hover:underline focus:outline-none"
       >
-        {isOpen ? 'Show less' : 'Show more'}
+        {isExpanded ? "Show less" : "Show more"}
       </button>
     </div>
   )

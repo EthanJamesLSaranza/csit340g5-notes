@@ -1,19 +1,9 @@
-import { useState } from 'react'
-import { SettingsContext } from './SettingsContext.js'
-import Notes from './components/Notes.jsx'
-import Info from './components/Info.jsx'
+import Notes from './components/Notes'
 
-function App() {
-  const [largeText, setLargeText] = useState(false)
-
+export default function App() {
   return (
-    <SettingsContext value={{ largeText, setLargeText }}>
-      <div className="bg-[#f5f5f5] font-light text-[#111]">
-        <Notes />
-        <Info name="Ethan James L. Saranza" />
-      </div>
-    </SettingsContext>
+    <main>
+      <Notes />
+    </main>
   )
 }
-
-export default App

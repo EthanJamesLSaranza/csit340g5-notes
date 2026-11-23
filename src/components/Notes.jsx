@@ -34,11 +34,11 @@ function Notes() {
 
   useEffect(() => {
     const id = setTimeout(() => {
-      localStorage.setItem('draft', JSON.stringify(form))
-      console.log('draft saved:', form.title)
+      localStorage.setItem('draft', JSON.stringify(formData))
+      console.log('draft saved:', formData.title)
     }, 1000)
     return () => clearTimeout(id)
-  }, [form])
+  }, [formData])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
