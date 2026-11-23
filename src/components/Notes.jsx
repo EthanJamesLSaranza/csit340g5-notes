@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import NoteCard from './NoteCard.jsx'
 
 const startingNotes = [
@@ -13,7 +13,7 @@ const startingNotes = [
     body: 'Practice writing one handler for many inputs.',
   },
 ]
-
+ 
 
 function Notes() {
   const [notes, setNotes] = useState(() => {
@@ -26,20 +26,11 @@ function Notes() {
     body: ""
   });
 
-  const [searchQuery, setSearchQuery] = useState("")
-  const titleRef = useRef(null)
-
-    useEffect(() => {
-    localStorage.setItem('notes', JSON.stringify(notes))
-  }, [notes])
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    const id = setTimeout(() => {
-      localStorage.setItem('draft', JSON.stringify(formData))
-      console.log('draft saved:', formData.title)
-    }, 1000)
-    return () => clearTimeout(id)
-  }, [formData])
+    localStorage.setItem('notes', JSON.stringify(notes))
+  }, [notes])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,18 +56,15 @@ function Notes() {
 
     setNotes((prevNotes) => [...prevNotes, newNote]);
     setFormData({ title: "", body: "" });
-    titleRef.current.focus()
   };
 
   const deleteNote = (id) => {
     setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
   };
-  const visibleNotes = useMemo(() => {
-  console.log('filtering')
-  return notes.filter((note) =>
+
+  const filteredNotes = notes.filter((note) =>
     note.title.toLowerCase().includes(searchQuery.toLowerCase())
-  )
-}, [notes, searchQuery])
+  );
 
   return (
     <div className="grid min-h-screen grid-cols-[420px_1fr]">
@@ -98,7 +86,6 @@ function Notes() {
             <form onSubmit={handleSubmit} className="grid gap-3 mt-5">
               <p className="text-[13px] font-normal tracking-wide text-[#949494]">NEW NOTE</p>
               <input
-                ref={titleRef}
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
@@ -120,13 +107,14 @@ function Notes() {
           </div>
         </div>
 
+        <p className="text-xs text-[#949494]">Created by Ethan James L. Saranza</p>
       </aside>
 
       <section className="px-12 py-11">
         <h2 className="mb-6 text-3xl">All notes</h2>
      
         <ul className="grid grid-cols-3 items-start gap-5">
-          {visibleNotes.map((note) => (
+          {filteredNotes.map((note) => (
             <li 
               key={note.id} 
               className="relative min-h-32 bg-white px-6 py-5 shadow-[0_2px_4px_0_rgba(0,0,0,0.2),0_25px_50px_0_rgba(0,0,0,0.1)]"
@@ -146,7 +134,7 @@ function Notes() {
           ))}
         </ul>
 
-        {visibleNotes.length === 0 && (
+        {filteredNotes.length === 0 && (
           <p className="text-lg text-[#949494] mt-4">No notes found</p>
         )}
       </section>
